@@ -1,0 +1,28 @@
+; 11/14/20: Geitanksha Tandon's Code to find the sum of positive numbers stored in memory.
+; This code stores 10 values in memory, loops through them, checks if they are positive. 
+; If yes, then they get added to the sum.
+
+
+; REGISTER TABLE
+; R2: Stores the current number being checked for positive nature.
+; R3: It is the pointer which points to the location in memory where the 10 numbers are stored
+; R4: It is a counter which counts down from 10 to 0, to check the number of times the loop must run
+; R5: It stores the sum of all the positive numbers that were found in the sequence of 10 numbers
+
+
+ 0011 0001 0000 0000 ; x3100 - starting address of the program
+
+; The program description and code starts here
+
+ 1110 011 000110001 ;    LEA R3, #31 	 	Make R3 point to Set of numbers at x3132
+ 0101 101 101 1 00000 ;  R5 AND 0 -> R5  	Makes R5 0
+ 0101 100 100 1 00000 ;  R4 AND 0 -> R4		Makes R4 0
+ 0001 100 100 1 01010 ;  R4 + 10 -> R4		Makes R4 (Counter) 10
+ 0001 100 100 1 00000 ;  R4 + 0 -> R4		Sets CC
+ 0110 010 011 000000 ;   LDR: M[R3] -> R2	Number at the pointer is stored into R2 to be used
+ 0000 110 000000001 ;    BRnz #1 		If number is negative or 0, it avoids adding number to the sum
+ 0001 101 101 000 010 ;  R2 + R5 -> R5		Since number is positive, it is added to the sum
+ 0001 011 011 1 00001 ;  R3 + 1 -> R4 		Pointer is incremented
+ 0001 100 100 1 11111 ;  R4 - 1 -> R4 		Counter is decreased by 1
+ 0000 001 111111000 ;    BRp #-8		Loops back to setting cc for next loop
+ 1111 0000 00100101 ;    Trap x25		Ends program
