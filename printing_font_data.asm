@@ -1,4 +1,4 @@
-S
+
 ; The table below represents an 8x16 font.  For each 8-bit extended ASCII
 ; character, the table uses 16 memory locations, each of which contains
 ; 8 bits (the high 8 bits, for your convenience) marking pixels in the
